@@ -40,10 +40,14 @@ Future<void> main() async {
     await Firebase.initializeApp();
   }else {
     await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: 'AIzaSyA40XT2LSjEI_V9LCfp8YDE2qN_P9Fcduw', ///current_key
-      appId: '1:384321080318:android:eb44f7600efcf9452c0eaf', /// mobilesdk_app_id
-      messagingSenderId: '384321080318', /// project_number
-      projectId: 'gem-b5006', /// project_id
+      apiKey: "AIzaSyCMseuZdwVM1utfyEKt4Ksx0qV8J7boNik",
+      authDomain: "joints-zar.firebaseapp.com",
+      databaseURL: "https://joints-zar-default-rtdb.firebaseio.com",
+      projectId: "joints-zar",
+      storageBucket: "joints-zar.firebasestorage.app",
+      messagingSenderId: "476825650444",
+      appId: "1:476825650444:web:c1e707831fa76c09e0b529",
+      measurementId: "G-ENVMMNTZ9R"
     ));
 
   }

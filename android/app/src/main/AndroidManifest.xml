@@ -32,12 +32,12 @@
     </queries>
 
     <application
-        android:label="eFood Delivery Man"
+        android:label="Joints Delivery"
         android:name="${applicationName}"
         android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="YOUR_MAP_KEY_HERE"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBtjhlbBV0QBG5OiNZbjA34jCXrp1pmvo4"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleInstance"

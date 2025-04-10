@@ -1,4 +1,4 @@
-package com.sixamtech.efood_delivery
+package com.kopetech.joints_delivery
 
 import io.flutter.embedding.android.FlutterActivity
 

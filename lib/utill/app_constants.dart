@@ -2,9 +2,9 @@ import 'package:resturant_delivery_boy/features/language/domain/models/language_
 import 'package:resturant_delivery_boy/utill/images.dart';
 
 class AppConstants {
-  static const String appName = 'Restaurant Delivery Man';
+  static const String appName = 'Joints Delivery';
   static const double appVersion = 11.2; //Flutter SDK: 3.24.5
-  static const String baseUrl = 'YOUR_BASE_URL_HERE';
+  static const String baseUrl = 'https://diner.joints.africa';
   static const String fontFamily = 'Rubik';
   static const String profileUri = '/api/v1/delivery-man/profile?token=';
   static const String configUri = '/api/v1/config';
