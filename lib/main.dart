@@ -1,4 +1,4 @@
-import 'dart:io';
+newimport 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -36,45 +36,49 @@ Future<void> main() async {
 
   stopService();
 
-  if(Platform.isIOS) {
-    await Firebase.initializeApp();
-  }else {
-    await Firebase.initializeApp(options: const FirebaseOptions(
-      apiKey: "AIzaSyCMseuZdwVM1utfyEKt4Ksx0qV8J7boNik",
-      authDomain: "joints-zar.firebaseapp.com",
-      databaseURL: "https://joints-zar-default-rtdb.firebaseio.com",
-      projectId: "joints-zar",
-      storageBucket: "joints-zar.firebasestorage.app",
-      messagingSenderId: "476825650444",
-      appId: "1:476825650444:web:c1e707831fa76c09e0b529",
-      measurementId: "G-ENVMMNTZ9R"
-    ));
-
+  try {
+    if (Firebase.apps.isEmpty) {
+      if (Platform.isIOS) {
+        await Firebase.initializeApp();
+      } else {
+        await Firebase.initializeApp(
+          options: const FirebaseOptions(
+            apiKey: "AIzaSyCMseuZdwVM1utfyEKt4Ksx0qV8J7boNik",
+            authDomain: "joints-zar.firebaseapp.com",
+            databaseURL: "https://joints-zar-default-rtdb.firebaseio.com",
+            projectId: "joints-zar",
+            storageBucket: "joints-zar.firebasestorage.app",
+            messagingSenderId: "476825650444",
+            appId: "1:476825650444:web:c1e707831fa76c09e0b529",
+            measurementId: "G-ENVMMNTZ9R"
+          ),
+        );
+      }
+    }
+  } catch (e) {
+    if (e is FirebaseException && e.code == 'duplicate-app') {
+      // Already initialized, safe to continue
+      debugPrint("⚠️ Firebase already initialized: ${e.message}");
+    } else {
+      rethrow;
+    }
   }
 
-  ///firebase crashlytics
-  // FlutterError.onError = (errorDetails) {
-  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
-  // };
-  //
-  // PlatformDispatcher.instance.onError = (error, stack) {
-  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-  //   return true;
-  // };
-
-  if(defaultTargetPlatform == TargetPlatform.android){
+  if (defaultTargetPlatform == TargetPlatform.android) {
     FirebaseMessaging.instance.requestPermission();
   }
+
   await di.init();
   await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
-  if(defaultTargetPlatform == TargetPlatform.android){
+
+  if (defaultTargetPlatform == TargetPlatform.android) {
     channel = const AndroidNotificationChannel(
       'high_importance_channel',
       'High Importance Notifications',
       importance: Importance.high,
     );
   }
-  await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
+
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 
   runApp(MultiProvider(
@@ -84,7 +88,6 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<LanguageProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<AuthProvider>()),
-      ChangeNotifierProvider(create: (context) => di.sl<LocalizationProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ProfileProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<OrderProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<TrackerProvider>()),
@@ -94,6 +97,7 @@ Future<void> main() async {
     child: const MyApp(),
   ));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
